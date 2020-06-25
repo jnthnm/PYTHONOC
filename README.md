@@ -1,3 +1,3 @@
 # PYTHON
 
-Le but de ce dépot est d'automatiser des tâchhes
+Le but de ce dépot est d'automatiser des tâches
