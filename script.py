@@ -15,8 +15,10 @@ print(doclist)
 # 2 - En faire un ZIP
 import zipfile
 
+# Je décide de crée mon fichier zip dans D:\Jonathan\Documents\ 'w : writemod'
 my_zip = zipfile.ZipFile('D:\Jonathan\Documents\montest.zip', 'w')
 
+# Je met les fichiers que je souhaite
 my_zip.write('D:\Jonathan\Documents\doc.docx')
 my_zip.write('D:\Jonathan\Documents\docdeux.docx')
 
