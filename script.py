@@ -6,4 +6,8 @@
 # import datetime
 # import zipfile
 
-
+# J'utilise import os afin de lister mes fichiers présents dans /J/Documents
+import os
+doclist = os.listdir("D:\Jonathan\Documents")
+# J'affiche ma liste avec print
+print(doclist)
