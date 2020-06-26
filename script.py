@@ -25,3 +25,12 @@ my_zip.write('D:\Jonathan\Documents\docdeux.docx')
 my_zip.close()
 
 # 3 - Utiliser CLI AWS pour s'authentifier (https://docs.aws.amazon.com/fr_fr/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration)
+
+
+# 4 - Push mon script sur mon serv S3 AWS (https://boto3.amazonaws.com/v1/documentation/api/latest/index.html) (https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html)
+
+import boto3
+s3 = boto3.resource('s3')
+s3.Bucket('pythonscriptoc').upload_file('D:\Jonathan\Documents\montest.zip')
+
+# 5 - L'integrer au planificateur de taches
