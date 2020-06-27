@@ -6,20 +6,29 @@
 
 # J'utilise import os afin de lister mes fichiers présents dans /J/Documents
 import os
+import zipfile
+import boto3
+
 doclist = os.listdir("D:\Jonathan\Documents")
 # J'affiche ma liste avec print
 print(doclist)
 
-# 2 - En faire un ZIP
-import zipfile
 # Je décide de crée mon fichier zip dans D:\Jonathan\Documents\ 'w : writemod'
 my_zip = zipfile.ZipFile('D:\Jonathan\Documents\montest.zip', 'w')
 
-# Je met les fichiers que je souhaite
-my_zip.write('D:\Jonathan\Documents\doc.docx')
-my_zip.write('D:\Jonathan\Documents\docdeux.docx')
-
+# On fait une boucle qui parcours les fichiers du dossier documents
+# Il zip tout par défaut .txt .word .py ...
+for file in doclist:
+    if '.txt' in file:
+        my_zip.write(os.path.join("D:\Jonathan\Documents", file))
+            
 my_zip.close()
+    
+# 2 - En faire un ZIP
+
+# Je met les fichiers que je souhaite
+#my_zip.write('D:\Jonathan\Documents\doc.docx')
+#my_zip.write('D:\Jonathan\Documents\docdeux.docx')
 
 # 3 - Utiliser CLI AWS pour s'authentifier (https://docs.aws.amazon.com/fr_fr/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration)
 
@@ -28,9 +37,7 @@ my_zip.close()
 print('Auth AWS OK')
 
 # 4 - Push mon script sur mon serv S3 AWS (https://boto3.amazonaws.com/v1/documentation/api/latest/index.html) (https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html)
-
 # Module boto3 
-import boto3
 
 s3 = boto3.resource('s3')
 s3.meta.client.upload_file('D:\Jonathan\Documents\montest.zip', 'pythonscriptoc', 'montest.zip')
