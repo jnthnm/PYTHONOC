@@ -16,40 +16,52 @@ import datetime
 import json
 
 datetoday = datetime.date.today()
+print("La date d'aujourd'hui est : " + " " + str(datetoday))
 
 # Je charge mon fichier de config.json qui regroupe mes paramètres. 
 with open('./config.json', 'r') as fichier:
     parametres = json.load(fichier)
-print(parametres["chemincfg"])
 
-doclist = os.listdir(parametres["chemincfg"])
+doclist = os.listdir(parametres["chemin"])
 # J'affiche ma liste avec print
 print("La liste des documents : " + " " + str(doclist))
 
-monchemin = 'D:\Jonathan\Documents\documents' + str(datetoday) + '.zip'
-print("Le chemin est" + " " + str(monchemin) + " " + "et la date est le" + " " + str(datetoday))
+nomdoc = 'Mesdocuments' + str(datetoday) + '.zip'
+creationzip = parametres["chemin"] + nomdoc 
+ #print("Le chemin est" + " " + str(nomdoc) + " " + "et la date est le" + " " + str(datetoday))
+#nomdoc = parametres["chemin"] + 'Mesdocuments' + str(datetoday) + '.zip'
+print(nomdoc)
+
+#nomdoc = 'Mesdocuments' + str(datetoday) + '.zip'
+ #print("Le chemin est" + " " + str(nomdoc) + " " + "et la date est le" + " " + str(datetoday))
+#creationzip = parametres["chemin"] + nomdoc + '.zip'
+#+ str(datetoday) + '.zip'
+#print(nomdoc)
+
 
 # Je décide de crée mon fichier zip dans D:\Jonathan\Documents\ 'w : writemod'
-my_zip = zipfile.ZipFile(monchemin, 'w')
+my_zip = zipfile.ZipFile(creationzip, 'w')
 
 # On fait une boucle qui parcours les fichiers du dossier documents
 # Et qui crée notre zip
 for file in doclist:
     if '.txt' in file:
-       my_zip.write(os.path.join("D:\Jonathan\Documents", file))
+       my_zip.write(os.path.join(parametres["chemin"], file))
             
 my_zip.close()
-print("Fichier ZIP Crée")
-    
-# 2 - En faire un ZIP
-# 3 - Utiliser CLI AWS pour s'authentifier (https://docs.aws.amazon.com/fr_fr/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration)
-
-# AWS CONFIGURE -> On y rentre notre AWS Access Key ID & notre AWS Secret Access Key
-#print('Auth AWS OK')
 
 # 4 - Push mon script sur mon serv S3 AWS (https://boto3.amazonaws.com/v1/documentation/api/latest/index.html) (https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html)
-# Module boto3 
 
-#s3 = boto3.resource('s3')
-#s3.meta.client.upload_file('D:\Jonathan\Documents\montest.zip', 'pythonscriptoc', 'montest.zip')
+s3 = boto3.resource('s3')
+s3.meta.client.upload_file(creationzip, 'pythonscriptoc', nomdoc)
 
+# Verif si c'est bien upload sur AWS
+   # s3_client = boto3.client('s3')
+   # try:
+   #     response = s3_client.upload_file(file_name, bucket, object_name)
+   # except ClientError as e:
+   #     logging.error(e)
+   #     return False
+   # return True
+
+# Proceder au delete du fichier zip
