@@ -14,6 +14,7 @@ import zipfile
 import boto3
 import datetime
 import json
+import logging
 
 datetoday = datetime.date.today()
 print("La date d'aujourd'hui est : " + " " + str(datetoday))
@@ -52,16 +53,18 @@ my_zip.close()
 
 # 4 - Push mon script sur mon serv S3 AWS (https://boto3.amazonaws.com/v1/documentation/api/latest/index.html) (https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html)
 
+from botocore.exceptions import ClientError
+
 s3 = boto3.resource('s3')
 s3.meta.client.upload_file(creationzip, 'pythonscriptoc', nomdoc)
 
-# Verif si c'est bien upload sur AWS
-   # s3_client = boto3.client('s3')
-   # try:
-   #     response = s3_client.upload_file(file_name, bucket, object_name)
-   # except ClientError as e:
-   #     logging.error(e)
-   #     return False
-   # return True
+#s3.meta.client.upload_file(creationzip, 'pythonscriptoc', nomdoc)
+   
 
 # Proceder au delete du fichier zip
+try:
+        os.remove(creationzip)
+except OSError as e:
+        print(e)
+else:
+        print("File is deleted successfully")
