@@ -1,10 +1,7 @@
-# Le but est de crée un script de sauvegarde de deux fichiers
-#  et l'envoyer sur mon srv S3 AWS dans le bucket pythonscriptoc
-# - Lister tous les fichiers qui sont dans D:\Jonathan\Documents
-# - Integrer la date dans le nom du fichier de sauvegarde zip et delete le fichier zip à la fin ainsi que trouver un moyen
-# pour que AWS me confirme que le zip est bien uploadé
+# Le but est de crée un script de sauvegarde et l'envoyer sur mon srv S3 AWS dans le bucket pythonscriptoc
+# Utilisation du planificateur de tâches de windows afin d'executer le script automatique tous les jours
 
-# J'utilise import os afin de lister mes fichiers présents dans /J/Documents
+# Liste des import
 
 import os
 import zipfile
