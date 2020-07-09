@@ -64,3 +64,4 @@ except OSError as e:
 else:
     print("Le fichier zip nommé" + " " + nomdoc + " " + "est supprimé")
 
+# Utiliser planificateur de tâches windows pour exec le script automatiquement
