@@ -1,8 +1,6 @@
-# Le but est de crée un script de sauvegarde et l'envoyer sur mon srv S3 AWS dans le bucket pythonscriptoc
-# Utilisation du planificateur de tâches de windows afin d'executer le script automatique tous les jours
+# Le but est de crée un script de sauvegarde et l'envoyer sur mon srv S3 AWS dans le bucket récuperer du fichier config JSON
 
 # Liste des import
-
 import os
 import zipfile
 import boto3
@@ -11,19 +9,16 @@ import json
 import logging
 from botocore.exceptions import ClientError
 
-# Je récupère la date d'aujourd'hui dans une variable datetoday
-
-datetoday = datetime.date.today()
-print("La date d'aujourd'hui est : " + " " + str(datetoday))
-
 # Je charge mon fichier de config.json qui regroupe mon paramètre. 
 with open('./config.json', 'r') as fichier:
     parametres = json.load(fichier)
 
-print(parametres['bucketnom'])
+# Je récupère la date d'aujourd'hui dans une variable datetoday
+datetoday = datetime.date.today()
+print("La date d'aujourd'hui est : " + " " + str(datetoday))
 
 def create_bucket(bucket_name, region=None):
-    # Create bucket
+    # Création du bucket
     try:
         if region is None:
             s3_client = boto3.client('s3')
@@ -63,7 +58,6 @@ my_zip.close()
 
 def upload_to_aws(local_file, bucket, s3_file):
     s3 = boto3.client('s3')
-
     try:
         s3.upload_file(creationzip, bucket, nomdoc)
         print("Upload OK")
@@ -82,6 +76,7 @@ except OSError as e:
 else:
     print("Le fichier zip nommé" + " " + nomdoc + " " + "est supprimé")
 
+# Permet de verifié si le bucket est déja existant 
 bucketexist = False
 s3 = boto3.client('s3')
 response = s3.list_buckets()
@@ -98,5 +93,6 @@ else:
     # Rajouter création du bucket nommé dans le json      
 
 # Supprimé des fichiers qui date de 3 jours 
+
 # Rajouter un cloud azure
 # Utiliser planificateur de tâches windows pour exec le script automatiquement
