@@ -89,10 +89,13 @@ for bucket in response['Buckets']:
 if bucketexist: 
     print('Le bucket existe') 
 else:
-    print('Le bucket n\'existe pas') 
-    # Rajouter création du bucket nommé dans le json      
+    print('Le bucket n\'existe pas')       
 
 # Supprimé des fichiers qui date de 3 jours 
 
 # Rajouter un cloud azure
 # Utiliser planificateur de tâches windows pour exec le script automatiquement
+
+# AZURE
+#block_blob_service = BlockBlobService(
+#    account_name='testocazure', account_key='eOyZ5ZhH8QIh50UgmvxiMb62G+7gZdiUnh0LOTZRpPe30dn7tODGJhr530bDcL/jn6P4gMgAnm175CIsuOFZ8A==')
