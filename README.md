@@ -1,6 +1,6 @@
 # PYTHON
 
-# Script de sauvegarde hosté sur un serv AWS S3
+Expliquer comment on se sert du script
 
 
 
