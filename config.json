@@ -1,3 +1,5 @@
 {
-    "chemin": "D:\\Jonathan\\Documents\\"
+    "chemin": "D:\\Jonathan\\Documents\\",
+    "cloudname": "AWS", 
+    "bucketname": "pythonscriptoc"
 }

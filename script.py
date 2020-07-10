@@ -41,8 +41,6 @@ my_zip.close()
 # S'authentifié avec le CLI D'AWS
 # Push mon script sur mon serv S3 AWS (https://boto3.amazonaws.com/v1/documentation/api/latest/index.html) (https://docs.aws.amazon.com/AmazonS3/latest/user-guide/upload-objects.html)
 
-import boto3
-
 def upload_to_aws(local_file, bucket, s3_file):
     s3 = boto3.client('s3')
 
@@ -64,4 +62,23 @@ except OSError as e:
 else:
     print("Le fichier zip nommé" + " " + nomdoc + " " + "est supprimé")
 
+bucketexist = False
+s3 = boto3.client('s3')
+response = s3.list_buckets()
+print('Existing buckets:')
+for bucket in response['Buckets']:
+    print(f'  {bucket["Name"]}')
+    if bucket["Name"] == 'pythonscripto':
+        bucketexist = True
+
+if bucketexist: 
+    print('Le bucket existe') 
+else:
+    print('Le bucket n\'existe pas') 
+    # Rajouter création du bucket nommé dans le json      
+
+# Supprimé des fichiers qui date de 3 jours 
+# Ajouter variable bucket json et ajouter bucket en script
+# Rajouter un cloud azure
 # Utiliser planificateur de tâches windows pour exec le script automatiquement
+
