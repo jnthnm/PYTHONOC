@@ -96,6 +96,4 @@ else:
 # Rajouter un cloud azure
 # Utiliser planificateur de tâches windows pour exec le script automatiquement
 
-# AZURE
-#block_blob_service = BlockBlobService(
-#    account_name='testocazure', account_key='eOyZ5ZhH8QIh50UgmvxiMb62G+7gZdiUnh0LOTZRpPe30dn7tODGJhr530bDcL/jn6P4gMgAnm175CIsuOFZ8A==')
+
