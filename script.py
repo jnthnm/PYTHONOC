@@ -93,7 +93,13 @@ else:
 
 # Supprimé des fichiers qui date de 3 jours 
 
-# Rajouter un cloud azure
+print(nomdoc)
+
+# Methode pour delete un fichier de mon bucket crée
+s3 = boto3.resource("s3")
+obj = s3.Object(parametres['bucketnom'], "Mesdocuments2020-07-10.zip")
+obj.delete()
+
 # Utiliser planificateur de tâches windows pour exec le script automatiquement
 
 
