@@ -97,9 +97,10 @@ print(nomdoc)
 
 # Methode pour delete un fichier de mon bucket crée
 s3 = boto3.resource("s3")
-obj = s3.Object(parametres['bucketnom'], "Mesdocuments2020-07-10.zip")
+obj = s3.Object(parametres['bucketnom'], nomdoc)
 obj.delete()
-
+print("Le fichier zip nommé" + " " + nomdoc + " " + "est supprimé du cloud S3 AWS du bucket nommé" + " " + parametres['bucketnom'])
++
 # Utiliser planificateur de tâches windows pour exec le script automatiquement
 
 
