@@ -7,6 +7,7 @@ import boto3
 import datetime
 import json
 import logging
+
 from botocore.exceptions import ClientError
 
 # Je charge mon fichier de config.json qui regroupe mon paramètre. 
@@ -41,6 +42,7 @@ print("La liste des documents : " + " " + str(doclist))
 
 # Je crée le nom du fichier avec la date du jour puis création du zip
 nomdoc = 'Mesdocuments' + str(datetoday) + '.zip'
+#nomdoc_todelete = datetoday - timedelta 3jours
 creationzip = parametres["chemin"] + nomdoc 
 print(nomdoc)
 
@@ -95,12 +97,12 @@ else:
 
 print(nomdoc)
 
-# Methode pour delete un fichier de mon bucket crée
+# Méthode pour delete un fichier de mon bucket crée
 s3 = boto3.resource("s3")
 obj = s3.Object(parametres['bucketnom'], nomdoc)
 obj.delete()
 print("Le fichier zip nommé" + " " + nomdoc + " " + "est supprimé du cloud S3 AWS du bucket nommé" + " " + parametres['bucketnom'])
-+
+
 # Utiliser planificateur de tâches windows pour exec le script automatiquement
 
 
