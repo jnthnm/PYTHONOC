@@ -7,6 +7,7 @@ import boto3
 import datetime
 import json
 import logging
+import timedelta 
 
 from botocore.exceptions import ClientError
 
@@ -42,9 +43,14 @@ print("La liste des documents : " + " " + str(doclist))
 
 # Je crée le nom du fichier avec la date du jour puis création du zip
 nomdoc = 'Mesdocuments' + str(datetoday) + '.zip'
-#nomdoc_todelete = datetoday - timedelta 3jours 'Mesdocuments' + str(datetoday) + '.zip'
-creationzip = parametres["chemin"] + nomdoc 
 print(nomdoc)
+creationzip = parametres["chemin"] + nomdoc 
+
+# On utilise timedelta pour faire l'opération sur la date actuel
+datesave = datetime.timedelta(parametres["joursdesave"])
+print(datesave)
+nom_todelete = 'Mesdocuments' + str(datetoday + datesave) + '.zip'
+print(nom_todelete)
 
 my_zip = zipfile.ZipFile(creationzip, 'w')
 
@@ -76,7 +82,7 @@ try:
 except OSError as e:
     print(e)
 else:
-    print("Le fichier zip nommé" + " " + nomdoc + " " + "est supprimé")
+    print("Le fichier zip nommé" + " " + nom_todelete + " " + "est supprimé")
 
 # Permet de verifié si le bucket est déja existant 
 bucketexist = False
@@ -97,9 +103,9 @@ print(nomdoc)
 
 # Delete du fichier défini dans le fichier de config.json
 s3 = boto3.resource("s3")
-obj = s3.Object(parametres['bucketnom'], nomdoc)
+obj = s3.Object(parametres['bucketnom'], nom_todelete)
 obj.delete()
-print("Le fichier zip nommé" + " " + nomdoc + " " + "est supprimé du cloud S3 AWS du bucket nommé" + " " + parametres['bucketnom'])
+print("Le fichier zip nommé" + " " + nom_todelete + " " + "est supprimé du cloud S3 AWS du bucket nommé" + " " + parametres['bucketnom'])
 
 # Utiliser planificateur de tâches windows pour exec le script automatiquement
 # Choisir license libre
