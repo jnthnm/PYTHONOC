@@ -1,5 +1,9 @@
 # Script de sauvegarde automatique vers AWS 
 
+Ce script a pour objectif d'effectuer une sauvegarde automatique vers un server cloud hébérgé par AWS S3,
+de supprimé également des fichiers avec une date défini
+
+
 Pre requis pour que le script fonctionne :
 
 - Python 3.7.8
