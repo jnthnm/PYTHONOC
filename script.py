@@ -29,12 +29,6 @@ for bucket in response['Buckets']:
     if bucket["Name"] == parametres['bucketnom']:
         bucketexist = True
 
-if bucketexist: 
-    print('Le bucket existe') 
-else:
-    print('Le bucket n\'existe pas')         
-    create_bucket(parametres['bucketnom'],"us-west-2")
-
 def create_bucket(bucket_name, region=None):
     # Création du bucket
     try:
@@ -43,13 +37,19 @@ def create_bucket(bucket_name, region=None):
             s3_client.create_bucket(Bucket=bucket_name)
         else:
             s3_client = boto3.client('s3', region_name=region)
-            location = {'LocationConstraint': 'us-west-2'}
+            location = {'LocationConstraint': 'eu-west-1'}
             s3_client.create_bucket(Bucket=bucket_name,
                                     CreateBucketConfiguration=location)
     except ClientError as e:
         logging.error(e)
         return False
     return True
+
+if bucketexist: 
+    print('Le bucket existe') 
+else:
+    print('Le bucket n\'existe pas')         
+    create_bucket(parametres['bucketnom'],"eu-west-1")
 
 # Je liste mes dossiers dans le chemin choisi
 doclist = os.listdir(parametres["chemin"])
@@ -64,7 +64,7 @@ creationzip = parametres["chemin"] + nomdoc
 # On utilise timedelta pour faire l'opération sur la date actuel
 datesave = datetime.timedelta(parametres["joursdesave"])
 print(datesave)
-nom_todelete = 'Mesdocuments' + str(datetoday + datesave) + '.zip'
+nom_todelete = 'Mesdocuments' + str(datetoday - datesave) + '.zip'
 print(nom_todelete)
 
 my_zip = zipfile.ZipFile(creationzip, 'w')
@@ -95,7 +95,5 @@ s3 = boto3.resource("s3")
 obj = s3.Object(parametres['bucketnom'], nom_todelete)
 obj.delete()
 print("Le fichier zip nommé" + " " + nom_todelete + " " + "est supprimé du cloud S3 AWS du bucket nommé" + " " + parametres['bucketnom'])
-
-
 
 
