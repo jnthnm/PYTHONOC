@@ -1,29 +1,20 @@
-# Script de sauvegarde automatique vers AWS 
+# Automatic backup script to AWS on Windows
 
-Ce script a pour objectif d'effectuer une sauvegarde automatique vers un server cloud hébérgé par AWS S3,
-de supprimé également des fichiers avec une date défini
+The purpose of this script is to perform an automatic backup of zip files to a cloud server hosted by AWS S3, also to delete files with a date defined in the JSON configuration file.
 
-
-Pre requis pour que le script fonctionne :
+# Pre required for the script to work :
 
 - Python 3.7.8
-Indiquer pip python
-- CLI AWS
-- Github
+- Install pip install timedelta
+- AWS CLI in order to automatically authenticate to our AWS S3 server (https://docs.aws.amazon.com/fr_fr/cli/latest/userguide/cli-chap-install.html)
+- Github in order to get the script
 
-Fonctionnement :
+# Operating mode :
 
-On définit nos paramètres dans le fichier de configuration nommé config.json
+We define our parameters in the configuration file named config.json
 
-- "chemin": "Le Chemin des fichiers à sauvegarder",
-- "bucketnom": "Nom Du Bucket qui sera crée sur notre serveur S3 AWS",
-- "joursdesave": Le nombre de jours de sauvegardes avant la suppréssion du fichier
+- "path": "The Path of the files to save",
+- "bucketnom": "Bucket name which will be created on our S3 AWS server",
+- "days of save": The number of days of save before the deletion of the file
 
-
-
-
-
-
-
-
-
+Last step, you must use the Windows task scheduler so that the script can run automatically.
